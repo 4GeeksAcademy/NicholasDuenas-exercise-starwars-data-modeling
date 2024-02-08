@@ -27,15 +27,17 @@ class Favorites(Base):
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    Person = Column(String(16), nullable=False)
-    planets = Column(String(36), nullable = False)
     user_id = Column(Integer, ForeignKey('user.id'))
+    person_id = Column(Integer, ForeignKey('person.id'))
+    planet_id = Column(Integer, ForeignKey('planet.id'))
     user = relationship(User)
+    person = relationship(Person)
+    planets = relationship(Planets)
 
-    def to_dict(self):
+    def serialize(self):
         return {
             "id": self.id, 
-            "name": self.name
+            "name": self.user_id
         }
 
 
